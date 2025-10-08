@@ -29,7 +29,7 @@ global.vs = "^1.8.2|Latest"
 global.nameqr = "YukiBot-MD"
 global.sessions = "Sessions/Principal"
 global.jadi = "Sessions/SubBot"
-global.yukiJadibts = true
+global.OukaJadibts = true
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
@@ -37,7 +37,7 @@ global.botname = "⏤͟͟͞͞⸙ְ̻࠭ ✿ 𝑳𝒆𝒈𝒂𝒄𝒚 𝑩𝒐�
 global.textbot = "⏤͟͟͞͞⸙ְ̻࠭ ✿ 𝑳𝒆𝒈𝒂𝒄𝒚 𝑩𝒐𝒕 ✿ ⸙ְ̻࠭"
 global.dev = "⚙️ ⌬ 𝙲𝚞𝚜𝚝𝚘𝚖 𝙼𝚘𝚍𝚜 𝙱𝚢 𐔌 𝑵𝒆𝒚𝒌𝒐𝒐𝒓 💻🛠️"
 global.author = "𐔌 𝗡𝗲𝘆𝗸𝗼𝗼𝗿 ❝ 𝗠𝗮𝗱𝗲 𝗪𝗶𝘁𝗵 𝗟𝗼𝘃𝗲 ❞ 𓆩 ͡꒱"
-global.etiqueta = ""
+global.etiqueta = "𝑵𝒆𝒚𝒌𝒐𝒐𝒓 💻🛠️"
 global.currency = "¥enes"
 global.banner = "https://files.catbox.moe/p9ueek.jpg"
 global.icono = "https://files.catbox.moe/ecdeli.jpeg"
