@@ -47,7 +47,7 @@ OukaJBOptions.args = args
 OukaJBOptions.usedPrefix = usedPrefix
 OukaJBOptions.command = command
 OukaJBOptions.fromCommand = true
-yukiJadiBot(OukaJBOptions)
+OukaJadibts(OukaJBOptions)
 global.db.data.users[m.sender].Subs = new Date * 1
 }
 handler.help = ['qr', 'code']
@@ -55,8 +55,8 @@ handler.tags = ['serbot']
 handler.command = ['qr', 'code']
 export default handler 
 
-export async function yukiJadiBot(options) {
-let { pathYukiJadiBot, m, conn, args, usedPrefix, command } = options
+export async function OukaJadibts(options) {
+let { path0ukaJadiBot, m, conn, args, usedPrefix, command } = options
 if (command === 'code') {
 command = 'qr'
 args.unshift('code')
@@ -68,9 +68,9 @@ args[0] = args[0].replace(/^--code$|^code$/, "").trim()
 if (args[1]) args[1] = args[1].replace(/^--code$|^code$/, "").trim()
 if (args[0] == "") args[0] = undefined
 }
-const pathCreds = path.join(pathYukiJadiBot, "creds.json")
-if (!fs.existsSync(pathYukiJadiBot)){
-fs.mkdirSync(pathYukiJadiBot, { recursive: true })}
+const pathCreds = path.join(path0ukaJadiBot, "creds.json")
+if (!fs.existsSync(path0ukaJadiBot)){
+fs.mkdirSync(path0ukaJadiBot, { recursive: true })}
 try {
 args[0] && args[0] != undefined ? fs.writeFileSync(pathCreds, JSON.stringify(JSON.parse(Buffer.from(args[0], "base64").toString("utf-8")), null, '\t')) : ""
 } catch {
