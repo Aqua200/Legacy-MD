@@ -8,15 +8,17 @@ let handler = async (m, { conn }) => {
 
   const cpus = os.cpus()
   const cpu = cpus[0].model
-  const cpuSpeed = cpus[0].speed // MHz
-  const totalMem = os.totalmem() / (1024 ** 3) // GB
-  const freeMem = os.freemem() / (1024 ** 3) // GB
+  const cpuSpeed = cpus[0].speed > 0 ? cpus[0].speed : 'Desconocido'
+
+  const totalMem = os.totalmem() / (1024 ** 3)
+  const freeMem = os.freemem() / (1024 ** 3)
   const usedMem = totalMem - freeMem
 
   function formatUptime(seconds) {
-    const m = Math.floor(seconds / 60)
+    const h = Math.floor(seconds / 3600)
+    const m = Math.floor((seconds % 3600) / 60)
     const s = Math.floor(seconds % 60)
-    return `${m} minutos, ${s} segundos`
+    return `${h} horas, ${m} minutos, ${s} segundos`
   }
 
   const uptime = formatUptime(os.uptime())
