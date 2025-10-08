@@ -39,8 +39,8 @@ global.dev = "⚙️ ⌬ 𝙲𝚞𝚜𝚝𝚘𝚖 𝙼𝚘𝚍𝚜 𝙱𝚢 𐔌
 global.author = "𐔌 𝗡𝗲𝘆𝗸𝗼𝗼𝗿 ❝ 𝗠𝗮𝗱𝗲 𝗪𝗶𝘁𝗵 𝗟𝗼𝘃𝗲 ❞ 𓆩 ͡꒱"
 global.etiqueta = ""
 global.currency = "¥enes"
-global.banner = ""
-global.icono = " "
+global.banner = "https://files.catbox.moe/p9ueek.jpg"
+global.icono = "https://files.catbox.moe/ecdeli.jpeg"
 global.catalogo = fs.readFileSync('./lib/catalogo.jpg')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
