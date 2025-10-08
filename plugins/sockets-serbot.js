@@ -36,18 +36,18 @@ return m.reply(`ꕥ No se han encontrado espacios para *Sub-Bots* disponibles.`)
 let mentionedJid = await m.mentionedJid
 let who = mentionedJid && mentionedJid[0] ? mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 let id = `${who.split`@`[0]}`
-let pathYukiJadiBot = path.join(`./${jadi}/`, id)
-if (!fs.existsSync(pathYukiJadiBot)){
-fs.mkdirSync(pathYukiJadiBot, { recursive: true })
+let path0ukaJadiBot = path.join(`./${jadi}/`, id)
+if (!fs.existsSync(path0ukaJadiBot)){
+fs.mkdirSync(path0ukaJadiBot, { recursive: true })
 }
-yukiJBOptions.pathYukiJadiBot = pathYukiJadiBot
-yukiJBOptions.m = m
-yukiJBOptions.conn = conn
-yukiJBOptions.args = args
-yukiJBOptions.usedPrefix = usedPrefix
-yukiJBOptions.command = command
-yukiJBOptions.fromCommand = true
-yukiJadiBot(yukiJBOptions)
+OukaJBOptions.path0ukaJadiBot = path0ukaJadiBot
+OukaJBOptions.m = m
+OukaJBOptions.conn = conn
+OukaJBOptions.args = args
+OukaJBOptions.usedPrefix = usedPrefix
+OukaJBOptions.command = command
+OukaJBOptions.fromCommand = true
+yukiJadiBot(OukaJBOptions)
 global.db.data.users[m.sender].Subs = new Date * 1
 }
 handler.help = ['qr', 'code']
