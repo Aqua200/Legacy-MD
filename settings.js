@@ -45,11 +45,11 @@ global.catalogo = fs.readFileSync('./lib/catalogo.jpg')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.group = ""
-global.community = ""
-global.channel = ""
-global.github = ""
-global.gmail = ""
+global.group = "https://chat.whatsapp.com/Gqv0byeAjXiHPL5bX94UGE"
+global.community = "https://chat.whatsapp.com/CHXQizfRDItFdWM8F217oB"
+global.channel = "https://whatsapp.com/channel/0029VazHywx0rGiUAYluYB24"
+global.github = "https://github.com/Aqua200"
+global.gmail = "chinquepapa@gmail.com"
 global.ch = {
 ch1: "120363392571425662@newsletter"
 }
