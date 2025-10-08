@@ -247,23 +247,35 @@ process.on('unhandledRejection', (reason, promise) => {
 console.error("Rechazo no manejado detectado:", reason);
 });
 
-global.rutaJadiBot = join(__dirname, `./${jadi}`)
-if (global.yukiJadibts) {
-if (!existsSync(global.rutaJadiBot)) {
-mkdirSync(global.rutaJadiBot, { recursive: true }) 
-console.log(chalk.bold.cyan(`ꕥ La carpeta: ${jadi} se creó correctamente.`))
-} else {
-console.log(chalk.bold.cyan(`ꕥ La carpeta: ${jadi} ya está creada.`)) 
+global.rutaJadiBot = join(__dirname, `./${global.jadi}`)
+
+if (global.OukaJadibts) {
+    if (!existsSync(global.rutaJadiBot)) {
+        mkdirSync(global.rutaJadiBot, { recursive: true }) 
+        console.log(chalk.bold.cyan(`ꕥ La carpeta: ${global.jadi} se creó correctamente.`))
+    } else {
+        console.log(chalk.bold.cyan(`ꕥ La carpeta: ${global.jadi} ya está creada.`)) 
+    }
+
+    const readRutaJadiBot = readdirSync(global.rutaJadiBot)
+    if (readRutaJadiBot.length > 0) {
+        const creds = 'creds.json'
+        for (const gjbts of readRutaJadiBot) {
+            const botPath = join(global.rutaJadiBot, gjbts)
+            const readBotPath = readdirSync(botPath)
+            if (readBotPath.includes(creds)) {
+                OukaJadiBot({
+                    pathJadiBot: botPath,
+                    m: null,
+                    conn,
+                    args: '',
+                    usedPrefix: '/',
+                    command: 'serbot'
+                })
+            }
+        }
+    }
 }
-const readRutaJadiBot = readdirSync(rutaJadiBot)
-if (readRutaJadiBot.length > 0) {
-const creds = 'creds.json'
-for (const gjbts of readRutaJadiBot) {
-const botPath = join(rutaJadiBot, gjbts)
-const readBotPath = readdirSync(botPath)
-if (readBotPath.includes(creds)) {
-yukiJadiBot({pathYukiJadiBot: botPath, m: null, conn, args: '', usedPrefix: '/', command: 'serbot'})
-}}}}
 
 const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
 const pluginFilter = (filename) => /\.js$/.test(filename)
