@@ -1,41 +1,35 @@
 import speed from 'performance-now'
-import { exec } from 'child_process'
+import os from 'os'
 
 let handler = async (m, { conn }) => {
   let timestamp = speed()
   let sentMsg = await conn.reply(m.chat, '❀ Calculando ping...', m)
   let latency = speed() - timestamp
 
-  exec(`neofetch --stdout`, (error, stdout, stderr) => {
-    if (error) {
-      conn.sendMessage(m.chat, { text: `Error al obtener información del sistema: ${error.message}` }, { quoted: m })
-      return
-    }
+  const cpus = os.cpus()
+  const cpu = cpus[0].model
+  const cpuSpeed = cpus[0].speed // MHz
+  const totalMem = os.totalmem() / (1024 ** 3) // GB
+  const freeMem = os.freemem() / (1024 ** 3) // GB
+  const usedMem = totalMem - freeMem
 
-    const info = stdout.toString("utf-8")
+  function formatUptime(seconds) {
+    const m = Math.floor(seconds / 60)
+    const s = Math.floor(seconds % 60)
+    return `${m} minutos, ${s} segundos`
+  }
 
-    // Extraer valores importantes usando regex
-    const cpuMatch = info.match(/CPU:\s*(.+)/)
-    const cpuSpeedMatch = info.match(/CPU MHz:\s*([\d.]+)/) || info.match(/CPU:\s*.+@ (\d+\.\d+)GHz/)
-    const ramMatch = info.match(/Memory:\s*(.+)/)
-    const uptimeMatch = info.match(/Uptime:\s*(.+)/)
+  const uptime = formatUptime(os.uptime())
 
-    const cpu = cpuMatch ? cpuMatch[1].trim() : 'Desconocido'
-    const cpuSpeed = cpuSpeedMatch ? cpuSpeedMatch[1].trim() : 'Desconocido'
-    const ram = ramMatch ? ramMatch[1].trim().replace("MiB", "GB") : 'Desconocido'
-    const uptime = uptimeMatch ? uptimeMatch[1].trim() : 'Desconocido'
-
-    // Crear mensaje en el formato que quieres
-    let result = `
+  let result = `
 *» Velocidad* : ${latency.toFixed(0)} *_ms_*
 *» Procesador* : ${cpu}
 *» CPU* : ${cpuSpeed} MHz
-*» RAM* : ${ram}
+*» RAM* : ${usedMem.toFixed(2)} GB / ${totalMem.toFixed(2)} GB
 *» Tiempo activo* : ${uptime}
-    `
+  `
 
-    conn.sendMessage(m.chat, { text: result, edit: sentMsg.key }, { quoted: m })
-  })
+  conn.sendMessage(m.chat, { text: result, edit: sentMsg.key }, { quoted: m })
 }
 
 handler.help = ['ping']
