@@ -33,22 +33,22 @@ global.yukiJadibts = true
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.botname = "ᥡᥙkі sᥙ᥆ᥙ"
-global.textbot = "ᥡᥙkі, mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ"
-global.dev = "© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
-global.author = "© mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
-global.etiqueta = "ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜"
+global.botname = "⏤͟͟͞͞⸙ְ̻࠭ ✿ 𝑳𝒆𝒈𝒂𝒄𝒚 𝑩𝒐𝒕 ✿ ⸙ְ̻࠭"
+global.textbot = "⏤͟͟͞͞⸙ְ̻࠭ ✿ 𝑳𝒆𝒈𝒂𝒄𝒚 𝑩𝒐𝒕 ✿ ⸙ְ̻࠭"
+global.dev = "⚙️ ⌬ 𝙲𝚞𝚜𝚝𝚘𝚖 𝙼𝚘𝚍𝚜 𝙱𝚢 𐔌 𝑵𝒆𝒚𝒌𝒐𝒐𝒓 💻🛠️"
+global.author = "𐔌 𝗡𝗲𝘆𝗸𝗼𝗼𝗿 ❝ 𝗠𝗮𝗱𝗲 𝗪𝗶𝘁𝗵 𝗟𝗼𝘃𝗲 ❞ 𓆩 ͡꒱"
+global.etiqueta = ""
 global.currency = "¥enes"
-global.banner = "https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1742678744381.jpeg"
-global.icono = "https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1742678797993.jpeg"
+global.banner = ""
+global.icono = " "
 global.catalogo = fs.readFileSync('./lib/catalogo.jpg')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.group = "https://chat.whatsapp.com/HaKf6ezcwdbGzmH782eBal"
-global.community = "https://chat.whatsapp.com/G0kXqsteJFU74yrLtg79o6"
-global.channel = "https://whatsapp.com/channel/0029Vb64nWqLo4hb8cuxe23n"
-global.github = "https://github.com/The-King-Destroy/YukiBot-MD"
+global.group = ""
+global.community = ""
+global.channel = ""
+global.github = ""
 global.gmail = ""
 global.ch = {
 ch1: "120363392571425662@newsletter"
