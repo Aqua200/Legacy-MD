@@ -7,7 +7,6 @@ import chalk from "chalk"
 import fetch from "node-fetch"
 import ws from "ws"
 
-const { proto } = (await import("@whiskeysockets/baileys")).default
 const isNumber = x => typeof x === "number" && !isNaN(x)
 const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(function () {
 clearTimeout(this)
@@ -28,13 +27,9 @@ m = smsg(this, m) || m
 if (!m) return
 m.exp = 0
 try {
-if (!global.db) global.db = {}
-if (!global.db.data) global.db.data = {}
-if (!global.db.data.users) global.db.data.users = {}
-if (m && m.sender) {
-let user = global.db.data.users[m.sender]
-if (typeof user !== "object" || user === null) {
-user = global.db.data.users[m.sender] = {}
+const user = global.db.data.users[m.sender]
+if (typeof user !== "object") {
+global.db.data.users[m.sender] = {}
 }
 if (user) {
 if (!("name" in user)) user.name = m.name
@@ -76,12 +71,10 @@ commands: 0,
 afk: -1,
 afkReason: "",
 warn: 0
-}}
-if (!global.db.data.chats) global.db.data.chats = {}
-if (m && m.chat) {
-let chat = global.db.data.chats[m.chat]
-if (typeof chat !== "object" || chat === null) {
-chat = global.db.data.chats[m.chat] = {}
+}
+const chat = global.db.data.chats[m.chat]
+if (typeof chat !== "object") {
+global.db.data.chats[m.chat] = {}
 }
 if (chat) {
 if (!("isBanned" in chat)) chat.isBanned = false
@@ -109,12 +102,10 @@ antiLink: true,
 nsfw: false,
 economy: true,
 gacha: true
-}}
-if (!global.db.data.settings) global.db.data.settings = {}
-if (this.user && this.user.jid) {
-let settings = global.db.data.settings[this.user.jid]
-if (typeof settings !== "object" || settings === null) {
-settings = global.db.data.settings[this.user.jid] = {}
+}
+const settings = global.db.data.settings[this.user.jid]
+if (typeof settings !== "object") {
+global.db.data.settings[this.user.jid] = {}
 }
 if (settings) {
 if (!("self" in settings)) settings.self = false
@@ -128,10 +119,9 @@ restrict: true,
 jadibotmd: true,
 antiPrivate: false,
 gponly: false
-}}} catch (e) {
+}} catch (e) {
 console.error(e)
 }
- 
 if (typeof m.text !== "string") m.text = ""
 const user = global.db.data.users[m.sender]
 try {
@@ -145,7 +135,7 @@ const settings = global.db.data.settings[this.user.jid]
 const isROwner = [...global.owner.map((number) => number)].map(v => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender)
 const isOwner = isROwner || m.fromMe
 const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, "") + "@s.whatsapp.net").includes(m.sender) || user.premium == true
-const isOwners = [this.user.jid, ...global.owner.map((number) => number + "@s.whatsapp.net")].includes(m.sender);
+const isOwners = [this.user.jid, ...global.owner.map((number) => number + "@s.whatsapp.net")].includes(m.sender)
 if (settings.self && !isOwners) return
 if (settings.gponly && !isOwners && !m.chat.endsWith('g.us') && !/code|p|ping|qr|estado|status|infobot|botinfo|report|reportar|invite|join|logout|suggest|help|menu/gim.test(m.text)) return
 if (opts["queque"] && m.text && !(isPrems)) {
@@ -157,10 +147,10 @@ if (queque.indexOf(previousID) === -1) clearInterval(this)
 await delay(time)
 }, time)
 }
+ 
 if (m.isBaileys) return
 m.exp += Math.ceil(Math.random() * 10)
 let usedPrefix
-
 const groupMetadata = m.isGroup ? { ...(conn.chats[m.chat]?.metadata || await this.groupMetadata(m.chat).catch(_ => null) || {}), ...(((conn.chats[m.chat]?.metadata || await this.groupMetadata(m.chat).catch(_ => null) || {}).participants) && { participants: ((conn.chats[m.chat]?.metadata || await this.groupMetadata(m.chat).catch(_ => null) || {}).participants || []).map(p => ({ ...p, id: p.jid, jid: p.jid, lid: p.lid })) }) } : {}
 const participants = ((m.isGroup ? groupMetadata.participants : []) || []).map(participant => ({ id: participant.jid, jid: participant.jid, lid: participant.lid, admin: participant.admin }))
 const userGroup = (m.isGroup ? participants.find((u) => conn.decodeJid(u.jid) === m.sender) : {}) || {}
