@@ -1,1 +1,139 @@
-const _0x31e681=_0x31a8;(function(_0x4700f5,_0x459cd5){const _0x23b674=_0x31a8,_0x488c4f=_0x4700f5();while(!![]){try{const _0x5555f1=parseInt(_0x23b674(0x167))/0x1*(parseInt(_0x23b674(0x15c))/0x2)+-parseInt(_0x23b674(0x179))/0x3+parseInt(_0x23b674(0x16c))/0x4*(parseInt(_0x23b674(0x1a7))/0x5)+parseInt(_0x23b674(0x16e))/0x6+-parseInt(_0x23b674(0x18b))/0x7+parseInt(_0x23b674(0x18d))/0x8*(-parseInt(_0x23b674(0x188))/0x9)+parseInt(_0x23b674(0x197))/0xa;if(_0x5555f1===_0x459cd5)break;else _0x488c4f['push'](_0x488c4f['shift']());}catch(_0xb91741){_0x488c4f['push'](_0x488c4f['shift']());}}}(_0x4efa,0x826cf));import _0x1756dd from'node-fetch';function _0x4efa(){const _0x341b35=['parse','test','4717915xRWrEP','lastRolledId','delirius','chat','name','now','image','variants','floor','ver','rollwaifu','replace','git+https://github.com/The-King-Destroy/YukiBot-MD.git','some','lastRoll','string','isGroup','value','❀\x20El\x20comando\x20*<','media_asset','/search/gelbooru?query=','application/json','*\x0a⚥\x20Género\x20»\x20*','*\x0a✰\x20Valor\x20»\x20*','headers','\x20minuto','247502SEzBpB','chats','lastRolledMsgId','trim','*\x0a♡\x20Estado\x20»\x20*','then','./package.json','reservedUntil','content-type','utf-8','sendFile','1LhTnPD','ceil','split','Sin\x20nombre','number','4hPYfmb','user','8190JckPnK','toLowerCase','url','APIs','entries','readFile','writeFile','random','json','catch','tags','1518195vRKOKA','votes','>*\x20solo\x20está\x20disponible\x20para\x20Yuki\x20Suou.\x0a>\x20https://github.com/The-King-Destroy/YukiBot-MD','find','includes','getName','./lib/characters.json','access','report\x20para\x20informarlo.\x0a\x0a','*\x20de\x20nuevo.','data','group','help','https://danbooru.donmai.us/posts.json?tags=','map','2588553KfRspP','⚠︎\x20Se\x20ha\x20producido\x20un\x20problema.\x0a>\x20Usa\x20','repository','6161449wEAdhQ','characters','24WYXGFe','\x20segundo','users','values','gender','ꕥ\x20Los\x20comandos\x20de\x20*Gacha*\x20están\x20desactivados\x20en\x20este\x20grupo.\x0a\x0aUn\x20*administrador*\x20puede\x20activarlos\x20con\x20el\x20comando:\x0a»\x20*','large_file_url','length','reply','.jpg','17146470oWtYhH','ꕥ\x20Debes\x20esperar\x20*','Libre','sender','post','roll','key','expiresAt','Reclamado\x20por\x20','Mozilla/5.0','message','*\x0a❖\x20Fuente\x20»\x20*','command','file_url'];_0x4efa=function(){return _0x341b35;};return _0x4efa();}function _0x31a8(_0xb165c3,_0x
+import fetch from 'node-fetch';
+import { promises as fs } from 'fs';
+
+async function loadCharacters() {
+  try {
+    await fs.access("./lib/characters.json");
+  } catch {
+    await fs.writeFile("./lib/characters.json", '{}');
+  }
+  const data = await fs.readFile("./lib/characters.json", 'utf-8');
+  return JSON.parse(data);
+}
+
+function flattenCharacters(characters) {
+  return Object.values(characters).flatMap(c => Array.isArray(c.characters) ? c.characters : []);
+}
+
+function getSeriesNameByCharacter(characters, id) {
+  return Object.entries(characters).find(([, c]) => Array.isArray(c.characters) && c.characters.some(ch => String(ch.id) === String(id)))?.[1]?.["name"] || 'Desconocido';
+}
+
+function formatTag(tag) {
+  return String(tag).trim().toLowerCase().replace(/\s+/g, '_');
+}
+
+async function buscarImagenDelirius(tag) {
+  const formattedTag = formatTag(tag);
+  const urls = [
+    'https://safebooru.org/index.php?page=dapi&s=post&q=index&json=1&tags=' + formattedTag,
+    "https://danbooru.donmai.us/posts.json?tags=" + formattedTag,
+    global.APIs.delirius.url + "/search/gelbooru?query=" + formattedTag
+  ];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, {
+        headers: { 'User-Agent': "Mozilla/5.0", 'Accept': "application/json" }
+      });
+      const contentType = res.headers.get("content-type") || '';
+      if (!res.ok || !contentType.includes("json")) continue;
+      const json = await res.json();
+      const posts = Array.isArray(json) ? json : json?.post || json?.data || [];
+      const images = posts.map(p => p?.file_url || p?.large_file_url || p?.image || p?.media_asset?.variants?.[0]?.url)
+                          .filter(url => typeof url === "string" && /\.(jpe?g|png)$/.test(url));
+      if (images.length) return images;
+    } catch {}
+  }
+  return [];
+}
+
+// Cambiado para tu repositorio Ouka-MD
+const verifi = async () => {
+  try {
+    const pkg = await fs.readFile("./package.json", "utf-8");
+    const json = JSON.parse(pkg);
+    return json.repository?.['url'] === "git+https://github.com/Aqua200/Ouka-MD.git";
+  } catch {
+    return false;
+  }
+};
+
+const handler = async (m, { conn, usedPrefix, command }) => {
+  if (!(await verifi())) {
+    return conn.reply(m.chat, `❀ El comando *<${command}>* solo está disponible para Ouka-MD.\n> https://github.com/Aqua200/Ouka-MD`, m);
+  }
+
+  const chats = global.db.data.chats;
+  if (!chats[m.chat]) chats[m.chat] = {};
+  const chatData = chats[m.chat];
+  if (!chatData.characters) chatData.characters = {};
+
+  if (!chatData.gacha && m.isGroup) {
+    return m.reply(`ꕥ Los comandos de *Gacha* están desactivados en este grupo.\n\nUn *administrador* puede activarlos con el comando:\n» *${usedPrefix}gacha on*`);
+  }
+
+  const userData = global.db.data.users[m.sender];
+  const now = Date.now();
+  if (userData.lastRoll && now < userData.lastRoll) {
+    const remaining = Math.ceil((userData.lastRoll - now) / 1000);
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+    let text = '';
+    if (minutes > 0) text += `${minutes} minuto${minutes !== 1 ? 's' : ''} `;
+    if (seconds > 0 || text === '') text += `${seconds} segundo${seconds !== 1 ? 's' : ''}`;
+    return m.reply(`ꕥ Debes esperar *${text.trim()}* para usar *${usedPrefix + command}* de nuevo.`);
+  }
+
+  try {
+    const allChars = await loadCharacters();
+    const flattened = flattenCharacters(allChars);
+    const selected = flattened[Math.floor(Math.random() * flattened.length)];
+    const charId = String(selected.id);
+    const seriesName = getSeriesNameByCharacter(allChars, selected.id);
+    const tag = formatTag(selected.tags?.[0] || '');
+    const images = await buscarImagenDelirius(tag);
+    const image = images[Math.floor(Math.random() * images.length)];
+
+    if (!image) return m.reply(`ꕥ No se encontró imágenes para el personaje *${selected.name}*.`);
+
+    if (!global.db.data.characters) global.db.data.characters = {};
+    if (!global.db.data.characters[charId]) global.db.data.characters[charId] = {};
+
+    const charData = global.db.data.characters[charId];
+    const prevData = global.db.data.characters?.[charId] || {};
+
+    charData.name = String(selected.name || "Sin nombre");
+    charData.value = typeof prevData.value === "number" ? prevData.value : Number(selected.value) || 100;
+    charData.votes = Number(charData.votes || prevData.votes || 0);
+    charData.reservedBy = m.sender;
+    charData.reservedUntil = now + 20000;
+    charData.expiresAt = now + 60000;
+
+    let ownerName = await (async () => {
+      if (typeof charData.user === "string" && charData.user.trim()) {
+        return global.db.data.users[charData.user]?.["name"]?.trim() || 
+               await conn.getName(charData.user).then(n => n?.trim() || charData.user.split('@')[0]).catch(() => charData.user.split('@')[0]);
+      } else {
+        return 'desconocido';
+      }
+    })();
+
+    const caption = `❀ Nombre » *${charData.name}*\n⚥ Género » *${selected.gender || 'Desconocido'}*\n✰ Valor » *${charData.value.toLocaleString()}*\n♡ Estado » *${charData.user ? "Reclamado por " + ownerName : "Libre"}*\n❖ Fuente » *${seriesName}*`;
+
+    const sentMsg = await conn.sendFile(m.chat, image, charData.name + ".jpg", caption, m);
+
+    chatData.lastRolledId = charId;
+    chatData.lastRolledMsgId = sentMsg.key?.id || null;
+    chatData.lastRolledCharacter = { id: charId, name: charData.name, media: image };
+    userData.lastRoll = now + 900000; // 15 minutos cooldown
+  } catch (err) {
+    await conn.reply(m.chat, `⚠︎ Se ha producido un problema.\n> Usa ${usedPrefix}report para informarlo.\n\n${err.message}`, m);
+  }
+};
+
+handler.help = ["ver", "rw", "rollwaifu"];
+handler.tags = ['gacha'];
+handler.command = ["rollwaifu", "rw", "roll"];
+handler.group = true;
+
+export default handler;
