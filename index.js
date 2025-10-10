@@ -10,7 +10,7 @@ import fs, { readdirSync, statSync, unlinkSync, existsSync, mkdirSync, readFileS
 import yargs from 'yargs';
 import { spawn, execSync } from 'child_process'
 import lodash from 'lodash'
-import { OukaJadibts as OukaJadiBot } from './plugins/sockets-serbot.js'
+import { yukiJadiBot } from './plugins/sockets-serbot.js'
 import chalk from 'chalk'
 import syntaxerror from 'syntax-error'
 import pino from 'pino'
@@ -247,34 +247,23 @@ process.on('unhandledRejection', (reason, promise) => {
 console.error("Rechazo no manejado detectado:", reason);
 });
 
-global.rutaJadiBot = join(__dirname, `./${global.jadi}`)
-
-if (global.OukaJadibts) {
-    if (!existsSync(global.rutaJadiBot)) {
-        mkdirSync(global.rutaJadiBot, { recursive: true }) 
-        console.log(chalk.bold.cyan(`ꕥ La carpeta: ${global.jadi} se creó correctamente.`))
-    } else {
-        console.log(chalk.bold.cyan(`ꕥ La carpeta: ${global.jadi} ya está creada.`)) 
-    }
-const readRutaJadiBot = readdirSync(global.rutaJadiBot)
+global.rutaJadiBot = join(__dirname, `./${jadi}`)
+if (global.yukiJadibts) {
+if (!existsSync(global.rutaJadiBot)) {
+mkdirSync(global.rutaJadiBot, { recursive: true }) 
+console.log(chalk.bold.cyan(`ꕥ La carpeta: ${jadi} se creó correctamente.`))
+} else {
+console.log(chalk.bold.cyan(`ꕥ La carpeta: ${jadi} ya está creada.`)) 
+}
+const readRutaJadiBot = readdirSync(rutaJadiBot)
 if (readRutaJadiBot.length > 0) {
-    const creds = 'creds.json'
-    for (const gjbts of readRutaJadiBot) {
-        const botPath = join(global.rutaJadiBot, gjbts)
-        const readBotPath = readdirSync(botPath)
-        if (readBotPath.includes(creds)) {
-            await OukaJadiBot({
-                pathJadiBot: botPath,
-                m: null,
-                conn,
-                args: '',
-                usedPrefix: '/',
-                command: 'serbot'
-            })
-        }
-      }
-    }
- }
+const creds = 'creds.json'
+for (const gjbts of readRutaJadiBot) {
+const botPath = join(rutaJadiBot, gjbts)
+const readBotPath = readdirSync(botPath)
+if (readBotPath.includes(creds)) {
+yukiJadiBot({pathYukiJadiBot: botPath, m: null, conn, args: '', usedPrefix: '/', command: 'serbot'})
+}}}}
 
 const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
 const pluginFilter = (filename) => /\.js$/.test(filename)
