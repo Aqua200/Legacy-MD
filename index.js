@@ -256,26 +256,25 @@ if (global.OukaJadibts) {
     } else {
         console.log(chalk.bold.cyan(`ꕥ La carpeta: ${global.jadi} ya está creada.`)) 
     }
-
-    const readRutaJadiBot = readdirSync(global.rutaJadiBot)
-    if (readRutaJadiBot.length > 0) {
-        const creds = 'creds.json'
-        for (const gjbts of readRutaJadiBot) {
-            const botPath = join(global.rutaJadiBot, gjbts)
-            const readBotPath = readdirSync(botPath)
-            if (readBotPath.includes(creds)) {
-                OukaJadiBot({
-                    pathJadiBot: botPath,
-                    m: null,
-                    conn,
-                    args: '',
-                    usedPrefix: '/',
-                    command: 'serbot'
-                })
-            }
+const readRutaJadiBot = readdirSync(global.rutaJadiBot)
+if (readRutaJadiBot.length > 0) {
+    const creds = 'creds.json'
+    for (const gjbts of readRutaJadiBot) {
+        const botPath = join(global.rutaJadiBot, gjbts)
+        const readBotPath = readdirSync(botPath)
+        if (readBotPath.includes(creds)) {
+            await OukaJadiBot({
+                pathJadiBot: botPath,
+                m: null,
+                conn,
+                args: '',
+                usedPrefix: '/',
+                command: 'serbot'
+            })
         }
+      }
     }
-}
+ }
 
 const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
 const pluginFilter = (filename) => /\.js$/.test(filename)
