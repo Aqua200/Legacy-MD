@@ -33,12 +33,12 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
 console.log(chalk.magentaBright('\n❀ Iniciando...'))
-say('Yuki Suou', {
+say('Legacy-MD', {
 font: 'simple',
 align: 'left',
 gradient: ['green', 'white']
 })
-say('Made with love by Destroy', {
+say('Made with love by Neykoor', {
 font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']
@@ -264,7 +264,7 @@ if (global.OukaJadibts) {
             const botPath = join(global.rutaJadiBot, gjbts)
             const readBotPath = readdirSync(botPath)
             if (readBotPath.includes(creds)) {
-                // Llama a OukaJadibts en lugar de YukiJadiBot
+                // inestable 
                 OukaJadibts({ path0ukaJadiBot: botPath, m: null, conn, args: '', usedPrefix: '/', command: 'serbot' })
             }
         }
