@@ -1,6 +1,6 @@
 <h1 align="center">✦ Legacy-MD ✦</h1>
 
-<img src= "">
+<img src= "https://files.catbox.moe/586nxc.jpeg">
 </p>
 
 ### *`❕️ Información importante`*
